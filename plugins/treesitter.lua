@@ -9,6 +9,8 @@ return {
       "json",
       "yaml",
       "bash",
+      "gitignore",
+      "regex",
     })
   end,
 }

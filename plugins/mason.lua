@@ -11,6 +11,8 @@ return {
         "pyright",
         "terraformls",
         "bashls",
+        "yamlls",
+        "jsonls",
       })
     end,
   },

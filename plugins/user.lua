@@ -1,26 +1,42 @@
 return {
-  -- You can also add new plugins here as well:
-  -- Add plugins, the lazy syntax
-  -- "andweeb/presence.nvim",
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function() require("lsp_signature").setup() end,
-  },
+  -- Personal added plugins
 
+  -- Nice to sandbox some tests (Like JSBin but local with live preview)
+  { "metakirby5/codi.vim", cmd = "Codi", event = "VeryLazy" },
+  -- Show same words that the one under the cursor
   {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    -- config = function() require("todo-comments").setup {} end,
-    opts = {},
-    event = "BufRead",
-    cmd = { "TodoQuickFix" },
-    keys = { "<leader>T", "<cmd>TodoTelescope<cr>" },
+    "itchyny/vim-cursorword",
+    event = { "BufEnter", "BufNewFile" },
+    config = function()
+      vim.api.nvim_command "augroup user_plugin_cursorword"
+      vim.api.nvim_command "autocmd!"
+      vim.api.nvim_command "autocmd FileType NvimTree,lspsagafinder,dashboard,vista let b:cursorword = 0"
+      vim.api.nvim_command "autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif"
+      vim.api.nvim_command "autocmd InsertEnter * let b:cursorword = 0"
+      vim.api.nvim_command "autocmd InsertLeave * let b:cursorword = 1"
+      vim.api.nvim_command "augroup END"
+    end,
   },
+  -- To be able to move line & block of code
   {
-    "ThePrimeagen/harpoon",
+    "fedepujol/move.nvim",
     event = "BufRead",
-    opts = {},
-    config = function() require("harpoon").setup() end,
+  },
+  -- Use some snippet defined in the snippets folder
+  {
+    "dcampos/nvim-snippy",
+    config = function()
+      require("snippy").setup {
+        mappings = {
+          is = {
+            ["<Tab>"] = "expand_or_advance",
+            -- ['<S-Tab>'] = 'previous',
+          },
+          nx = {
+            ["<leader>x"] = "cut_text",
+          },
+        },
+      }
+    end,
   },
 }

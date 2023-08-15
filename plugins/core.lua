@@ -1,4 +1,6 @@
 return {
+  { "nvim-notify", enabled = false },
+
   -- customize alpha options
   {
     "goolord/alpha-nvim",
@@ -19,6 +21,12 @@ return {
       }
       return opts
     end,
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      window = { position = "right", width = 43 },
+    },
   },
   -- You can disable default plugins as follows:
   -- { "max397574/better-escape.nvim", enabled = false },
